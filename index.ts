@@ -9,6 +9,12 @@ interface Move {
   movetime: string;
 }
 
+interface ExperimentalData {
+  version: string;
+  dataset: Move[];
+  moveCentis: number[];
+}
+
 const renderSan = (san: string) => {
   if (san.charAt(1) !== '-') return san.charAt(0) + '.' + san.substring(1);
 };
@@ -20,9 +26,45 @@ let vnode: VNode;
 let dataset: Move[];
 
 function redraw() {
-  vnode = patch(vnode || container, h('main', [renderTable1(), renderTable2()]));
+  vnode = patch(vnode || container, h('main', [renderUpload(), renderTable2()]));
 }
 
+function renderUpload(): VNode {
+  return h('div', [
+    h('h2#uploadInputLabel', 'Upload experimental data'),
+    h('input#jsonFile', {
+      attrs: {
+        'aria-labelledBy': 'uploadInputLabel',
+        type: 'file',
+        accept: '.json',
+      },
+      on: {
+        change: event => {
+          const input = event.target as HTMLInputElement;
+          if (!input.files || input.files.length === 0 || !input.files[0]) {
+            return;
+          }
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            try {
+              const result = e.target?.result;
+              if (result && typeof result === 'string') {
+                const jsonData: ExperimentalData = JSON.parse(result);
+                dataset = jsonData.dataset;
+                redraw();
+              }
+            } catch (err) {
+              alert('Invalid JSON file.');
+            }
+          };
+          reader.readAsText(input!.files![0]);
+        },
+      },
+    }),
+  ]);
+}
+
+/*
 function renderTable1(): VNode {
   return h('div', [
     h('h2#moveTableLabel1', 'Move table using plain html table'),
@@ -42,6 +84,7 @@ function renderTable1(): VNode {
     ),
   ]);
 }
+*/
 
 function renderTable2(): VNode {
   return h('div', [
