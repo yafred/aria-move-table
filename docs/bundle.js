@@ -774,7 +774,7 @@
 
   // index.ts
   var renderSan = (san) => {
-    if (san.charAt(1) !== "-") return san.charAt(0) + "." + san.substring(1);
+    if (san.charAt(1) !== "-") return san.charAt(0) + " " + san.substring(1);
   };
   var patch = init([classModule, attributesModule, eventListenersModule, styleModule]);
   var container = document.getElementById("container");

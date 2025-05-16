@@ -16,7 +16,7 @@ interface ExperimentalData {
 }
 
 const renderSan = (san: string) => {
-  if (san.charAt(1) !== '-') return san.charAt(0) + '.' + san.substring(1);
+  if (san.charAt(1) !== '-') return san.charAt(0) + ' ' + san.substring(1);
 };
 
 const patch = init([classModule, attributesModule, eventListenersModule, styleModule]);
