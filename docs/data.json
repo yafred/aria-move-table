@@ -1,0 +1,210 @@
+[
+  {
+    "turn": 1,
+    "ply": 1,
+    "color": "white",
+    "san": "e4",
+    "advantage": "+0.2",
+    "movetime": "60.0"
+  },
+  {
+    "turn": 1,
+    "ply": 2,
+    "color": "black",
+    "san": "e5",
+    "advantage": "+0.2",
+    "movetime": "10.0"
+  },
+  {
+    "turn": 2,
+    "ply": 3,
+    "color": "white",
+    "san": "Nf3",
+    "advantage": "+0.3",
+    "movetime": "60.0"
+  },
+  {
+    "turn": 2,
+    "ply": 4,
+    "color": "black",
+    "san": "Nc6",
+    "advantage": "+0.3",
+    "movetime": "3.0"
+  },
+  {
+    "turn": 3,
+    "ply": 5,
+    "color": "white",
+    "san": "d4",
+    "advantage": "+0.1",
+    "movetime": "2.0"
+  },
+  {
+    "turn": 3,
+    "ply": 6,
+    "color": "black",
+    "san": "exd4",
+    "advantage": "+0.2",
+    "movetime": "5.0"
+  },
+  {
+    "turn": 4,
+    "ply": 7,
+    "color": "white",
+    "san": "Nxd4",
+    "advantage": "+0.2",
+    "movetime": "6.0"
+  },
+  {
+    "turn": 4,
+    "ply": 8,
+    "color": "black",
+    "san": "Nxd4",
+    "advantage": "+0.6",
+    "movetime": "6.0"
+  },
+  {
+    "turn": 5,
+    "ply": 9,
+    "color": "white",
+    "san": "Qxd4",
+    "advantage": "+0.7",
+    "movetime": "3.0"
+  },
+  {
+    "turn": 5,
+    "ply": 10,
+    "color": "black",
+    "san": "Nf6",
+    "advantage": "+2",
+    "movetime": "40.0"
+  },
+  {
+    "turn": 6,
+    "ply": 11,
+    "color": "white",
+    "san": "e5",
+    "advantage": "+1.6",
+    "movetime": "2.0"
+  },
+  {
+    "turn": 6,
+    "ply": 12,
+    "color": "black",
+    "san": "c5",
+    "advantage": "+1.9",
+    "movetime": "40.0"
+  },
+  {
+    "turn": 7,
+    "ply": 13,
+    "color": "white",
+    "san": "Qe3",
+    "advantage": "+1.7",
+    "movetime": "6.0"
+  },
+  {
+    "turn": 7,
+    "ply": 14,
+    "color": "black",
+    "san": "Nd5",
+    "advantage": "+1.8",
+    "movetime": "8.0"
+  },
+  {
+    "turn": 8,
+    "ply": 15,
+    "color": "white",
+    "san": "Qf3",
+    "advantage": "+1.8",
+    "movetime": "6.0"
+  },
+  {
+    "turn": 8,
+    "ply": 16,
+    "color": "black",
+    "san": "Nb4",
+    "advantage": "+1.4",
+    "movetime": "30.0"
+  },
+  {
+    "turn": 9,
+    "ply": 17,
+    "color": "white",
+    "san": "Na3",
+    "advantage": "+1.4",
+    "movetime": "6.0"
+  },
+  {
+    "turn": 9,
+    "ply": 18,
+    "color": "black",
+    "san": "Qa5",
+    "advantage": "+3.6",
+    "movetime": "6.0"
+  },
+  {
+    "turn": 10,
+    "ply": 19,
+    "color": "white",
+    "san": "c3",
+    "advantage": "+3.4",
+    "movetime": "10.0"
+  },
+  {
+    "turn": 10,
+    "ply": 20,
+    "color": "black",
+    "san": "Nc6",
+    "advantage": "+3.4",
+    "movetime": "15.0"
+  },
+  {
+    "turn": 11,
+    "ply": 21,
+    "color": "white",
+    "san": "Nc4",
+    "advantage": "+3",
+    "movetime": "15.0"
+  },
+  {
+    "turn": 11,
+    "ply": 22,
+    "color": "black",
+    "san": "Qc7",
+    "advantage": "+3.3",
+    "movetime": "20.0"
+  },
+  {
+    "turn": 12,
+    "ply": 23,
+    "color": "white",
+    "san": "Bf4",
+    "advantage": "+3.3",
+    "movetime": "8.0"
+  },
+  {
+    "turn": 12,
+    "ply": 24,
+    "color": "black",
+    "san": "Be7",
+    "advantage": "+4",
+    "movetime": "20.0"
+  },
+  {
+    "turn": 13,
+    "ply": 25,
+    "color": "white",
+    "san": "O-O-O",
+    "advantage": "+3",
+    "movetime": "6.0"
+  },
+  {
+    "turn": 13,
+    "ply": 26,
+    "color": "black",
+    "san": "O-O",
+    "advantage": "+2.9",
+    "movetime": "3.0"
+  }
+]
