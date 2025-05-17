@@ -14,7 +14,6 @@
     "moduleResolution": "node",
     "module": "es2022",
     "target": "es2023",
-    "lib": ["es2023", "dom"],
-    "types": ["node"]
+    "lib": ["es2023", "dom"]
   }
 }
