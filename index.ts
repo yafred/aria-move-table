@@ -89,26 +89,33 @@ function renderTable1(): VNode {
 function renderGrid(): VNode {
   return h('div', [
     h('h2', 'Move table using div elements'),
-    h('div', { attrs: { role: 'table', 'aria-label': 'Move table', 'aria-rowcount': dataset.length, class: 'grid-container' } }, [
-      h('div', { attrs: { role: 'row', class: 'grid-header' } }, [
-        h('div', { attrs: { role: 'columnheader' } }, 'Turn'),
-        h('div', { attrs: { role: 'columnheader'} }, 'Move'),
-        h('div', { attrs: { role: 'columnheader' } }, 'Move time'),
-        h('div', { attrs: { role: 'columnheader' } }, 'White advantage'),
-      ]),
-      ...dataset.map(item => {
-        return h('div', { attrs: { role: 'row', class: 'grid-data'  } }, [
-          h('div', { attrs: { role: 'cell'} }, item.turn),
-          h(
-            'div',
-            { attrs: { role: 'cell'} },
-            item.color + ' played ' + renderSan(item.san),
-          ),
-          h('div', { attrs: { role: 'cell' } }, item.movetime + ' seconds'),
-          h('div', { attrs: { role: 'cell' } }, item.advantage),
-        ]);
-      }),
-    ]),
+    h(
+      'div',
+      {
+        attrs: {
+          role: 'table',
+          'aria-label': 'Move table',
+          'aria-rowcount': dataset.length,
+          class: 'grid-container',
+        },
+      },
+      [
+        h('div', { attrs: { role: 'row', class: 'grid-header' } }, [
+          h('div', { attrs: { role: 'columnheader' } }, 'Turn'),
+          h('div', { attrs: { role: 'columnheader' } }, 'Move'),
+          h('div', { attrs: { role: 'columnheader' } }, 'Move time'),
+          h('div', { attrs: { role: 'columnheader' } }, 'White advantage'),
+        ]),
+        ...dataset.map(item => {
+          return h('div', { attrs: { role: 'row', class: 'grid-data' } }, [
+            h('div', { attrs: { role: 'cell' } }, item.turn),
+            h('div', { attrs: { role: 'cell', tabindex: 0 } }, item.color + ' played ' + renderSan(item.san)),
+            h('div', { attrs: { role: 'cell' } }, item.movetime + ' seconds'),
+            h('div', { attrs: { role: 'cell' } }, item.advantage),
+          ]);
+        }),
+      ],
+    ),
   ]);
 }
 
@@ -125,7 +132,6 @@ function renderTable2(): VNode {
           'aria-colcount': 4,
         },
       },
-
       h('tbody', [
         h('tr', [
           h('th', { attrs: { 'aria-colindex': 1 } }, 'Turn'),
@@ -136,7 +142,7 @@ function renderTable2(): VNode {
         ...dataset.map(item => {
           return h('tr', { attrs: { 'aria-rowindex': item.ply } }, [
             h('td', { attrs: { tabindex: -1 } }, item.turn),
-            h('td', { attrs: { tabindex: -1 } }, item.color + ' played ' + renderSan(item.san)),
+            h('td', { attrs: { tabindex: 0 } }, item.color + ' played ' + renderSan(item.san)),
             h('td', { attrs: { tabindex: -1 } }, item.movetime + ' seconds'),
             h('td', { attrs: { tabindex: -1 } }, item.advantage),
           ]);

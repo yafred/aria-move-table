@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 (() => {
   // node_modules/snabbdom/build/htmldomapi.js
   function createElement(tagName2, options) {
@@ -90,9 +90,15 @@
   function parseFragment(fragmentNode, parentNode2) {
     var _a, _b, _c;
     const fragment2 = fragmentNode;
-    (_a = fragment2.parent) !== null && _a !== void 0 ? _a : fragment2.parent = parentNode2 !== null && parentNode2 !== void 0 ? parentNode2 : null;
-    (_b = fragment2.firstChildNode) !== null && _b !== void 0 ? _b : fragment2.firstChildNode = fragmentNode.firstChild;
-    (_c = fragment2.lastChildNode) !== null && _c !== void 0 ? _c : fragment2.lastChildNode = fragmentNode.lastChild;
+    (_a = fragment2.parent) !== null && _a !== void 0
+      ? _a
+      : (fragment2.parent = parentNode2 !== null && parentNode2 !== void 0 ? parentNode2 : null);
+    (_b = fragment2.firstChildNode) !== null && _b !== void 0
+      ? _b
+      : (fragment2.firstChildNode = fragmentNode.firstChild);
+    (_c = fragment2.lastChildNode) !== null && _c !== void 0
+      ? _c
+      : (fragment2.lastChildNode = fragmentNode.lastChild);
     return fragment2;
   }
   var htmlDomApi = {
@@ -112,7 +118,7 @@
     isElement,
     isText,
     isComment,
-    isDocumentFragment
+    isDocumentFragment,
   };
 
   // node_modules/snabbdom/build/vnode.js
@@ -124,7 +130,7 @@
   // node_modules/snabbdom/build/is.js
   var array = Array.isArray;
   function primitive(s) {
-    return typeof s === "string" || typeof s === "number" || s instanceof String || s instanceof Number;
+    return typeof s === 'string' || typeof s === 'number' || s instanceof String || s instanceof Number;
   }
 
   // node_modules/snabbdom/build/init.js
@@ -134,17 +140,20 @@
   function isDef(s) {
     return s !== void 0;
   }
-  var emptyNode = vnode("", {}, [], void 0, void 0);
+  var emptyNode = vnode('', {}, [], void 0, void 0);
   function sameVnode(vnode1, vnode22) {
     var _a, _b;
     const isSameKey = vnode1.key === vnode22.key;
-    const isSameIs = ((_a = vnode1.data) === null || _a === void 0 ? void 0 : _a.is) === ((_b = vnode22.data) === null || _b === void 0 ? void 0 : _b.is);
+    const isSameIs =
+      ((_a = vnode1.data) === null || _a === void 0 ? void 0 : _a.is) ===
+      ((_b = vnode22.data) === null || _b === void 0 ? void 0 : _b.is);
     const isSameSel = vnode1.sel === vnode22.sel;
-    const isSameTextOrFragment = !vnode1.sel && vnode1.sel === vnode22.sel ? typeof vnode1.text === typeof vnode22.text : true;
+    const isSameTextOrFragment =
+      !vnode1.sel && vnode1.sel === vnode22.sel ? typeof vnode1.text === typeof vnode22.text : true;
     return isSameSel && isSameKey && isSameIs && isSameTextOrFragment;
   }
   function documentFragmentIsNotSupported() {
-    throw new Error("The document fragment is not supported on this platform.");
+    throw new Error('The document fragment is not supported on this platform.');
   }
   function isElement2(api, vnode3) {
     return api.isElement(vnode3);
@@ -163,14 +172,7 @@
     }
     return map;
   }
-  var hooks = [
-    "create",
-    "update",
-    "remove",
-    "destroy",
-    "pre",
-    "post"
-  ];
+  var hooks = ['create', 'update', 'remove', 'destroy', 'pre', 'post'];
   function init(modules, domApi, options) {
     const cbs = {
       create: [],
@@ -178,7 +180,7 @@
       remove: [],
       destroy: [],
       pre: [],
-      post: []
+      post: [],
     };
     const api = domApi !== void 0 ? domApi : htmlDomApi;
     for (const hook of hooks) {
@@ -190,9 +192,9 @@
       }
     }
     function emptyNodeAt(elm) {
-      const id = elm.id ? "#" + elm.id : "";
-      const classes = elm.getAttribute("class");
-      const c = classes ? "." + classes.split(" ").join(".") : "";
+      const id = elm.id ? '#' + elm.id : '';
+      const classes = elm.getAttribute('class');
+      const c = classes ? '.' + classes.split(' ').join('.') : '';
       return vnode(api.tagName(elm).toLowerCase() + id + c, {}, [], void 0, elm);
     }
     function emptyDocumentFragmentAt(frag) {
@@ -221,26 +223,26 @@
       }
       const children = vnode3.children;
       const sel = vnode3.sel;
-      if (sel === "!") {
+      if (sel === '!') {
         if (isUndef(vnode3.text)) {
-          vnode3.text = "";
+          vnode3.text = '';
         }
         vnode3.elm = api.createComment(vnode3.text);
-      } else if (sel === "") {
+      } else if (sel === '') {
         vnode3.elm = api.createTextNode(vnode3.text);
       } else if (sel !== void 0) {
-        const hashIdx = sel.indexOf("#");
-        const dotIdx = sel.indexOf(".", hashIdx);
+        const hashIdx = sel.indexOf('#');
+        const dotIdx = sel.indexOf('.', hashIdx);
         const hash = hashIdx > 0 ? hashIdx : sel.length;
         const dot = dotIdx > 0 ? dotIdx : sel.length;
         const tag = hashIdx !== -1 || dotIdx !== -1 ? sel.slice(0, Math.min(hash, dot)) : sel;
-        const elm = vnode3.elm = isDef(data) && isDef(i = data.ns) ? api.createElementNS(i, tag, data) : api.createElement(tag, data);
-        if (hash < dot)
-          elm.setAttribute("id", sel.slice(hash + 1, dot));
-        if (dotIdx > 0)
-          elm.setAttribute("class", sel.slice(dot + 1).replace(/\./g, " "));
-        for (i = 0; i < cbs.create.length; ++i)
-          cbs.create[i](emptyNode, vnode3);
+        const elm = (vnode3.elm =
+          isDef(data) && isDef((i = data.ns))
+            ? api.createElementNS(i, tag, data)
+            : api.createElement(tag, data));
+        if (hash < dot) elm.setAttribute('id', sel.slice(hash + 1, dot));
+        if (dotIdx > 0) elm.setAttribute('class', sel.slice(dot + 1).replace(/\./g, ' '));
+        for (i = 0; i < cbs.create.length; ++i) cbs.create[i](emptyNode, vnode3);
         if (primitive(vnode3.text) && (!array(children) || children.length === 0)) {
           api.appendChild(elm, api.createTextNode(vnode3.text));
         }
@@ -259,10 +261,17 @@
             insertedVnodeQueue.push(vnode3);
           }
         }
-      } else if (((_c = options === null || options === void 0 ? void 0 : options.experimental) === null || _c === void 0 ? void 0 : _c.fragments) && vnode3.children) {
-        vnode3.elm = ((_d = api.createDocumentFragment) !== null && _d !== void 0 ? _d : documentFragmentIsNotSupported)();
-        for (i = 0; i < cbs.create.length; ++i)
-          cbs.create[i](emptyNode, vnode3);
+      } else if (
+        ((_c = options === null || options === void 0 ? void 0 : options.experimental) === null ||
+        _c === void 0
+          ? void 0
+          : _c.fragments) &&
+        vnode3.children
+      ) {
+        vnode3.elm = (
+          (_d = api.createDocumentFragment) !== null && _d !== void 0 ? _d : documentFragmentIsNotSupported
+        )();
+        for (i = 0; i < cbs.create.length; ++i) cbs.create[i](emptyNode, vnode3);
         for (i = 0; i < vnode3.children.length; ++i) {
           const ch = vnode3.children[i];
           if (ch != null) {
@@ -286,13 +295,17 @@
       var _a, _b;
       const data = vnode3.data;
       if (data !== void 0) {
-        (_b = (_a = data === null || data === void 0 ? void 0 : data.hook) === null || _a === void 0 ? void 0 : _a.destroy) === null || _b === void 0 ? void 0 : _b.call(_a, vnode3);
-        for (let i = 0; i < cbs.destroy.length; ++i)
-          cbs.destroy[i](vnode3);
+        (_b =
+          (_a = data === null || data === void 0 ? void 0 : data.hook) === null || _a === void 0
+            ? void 0
+            : _a.destroy) === null || _b === void 0
+          ? void 0
+          : _b.call(_a, vnode3);
+        for (let i = 0; i < cbs.destroy.length; ++i) cbs.destroy[i](vnode3);
         if (vnode3.children !== void 0) {
           for (let j = 0; j < vnode3.children.length; ++j) {
             const child = vnode3.children[j];
-            if (child != null && typeof child !== "string") {
+            if (child != null && typeof child !== 'string') {
               invokeDestroyHook(child);
             }
           }
@@ -310,9 +323,14 @@
             invokeDestroyHook(ch);
             listeners = cbs.remove.length + 1;
             rm = createRmCb(ch.elm, listeners);
-            for (let i = 0; i < cbs.remove.length; ++i)
-              cbs.remove[i](ch, rm);
-            const removeHook = (_b = (_a = ch === null || ch === void 0 ? void 0 : ch.data) === null || _a === void 0 ? void 0 : _a.hook) === null || _b === void 0 ? void 0 : _b.remove;
+            for (let i = 0; i < cbs.remove.length; ++i) cbs.remove[i](ch, rm);
+            const removeHook =
+              (_b =
+                (_a = ch === null || ch === void 0 ? void 0 : ch.data) === null || _a === void 0
+                  ? void 0
+                  : _a.hook) === null || _b === void 0
+                ? void 0
+                : _b.remove;
             if (isDef(removeHook)) {
               removeHook(ch, rm);
             } else {
@@ -376,7 +394,11 @@
             api.insertBefore(parentElm, createElm(newStartVnode, insertedVnodeQueue), oldStartVnode.elm);
             newStartVnode = newCh[++newStartIdx];
           } else if (isUndef(oldKeyToIdx[newEndVnode.key])) {
-            api.insertBefore(parentElm, createElm(newEndVnode, insertedVnodeQueue), api.nextSibling(oldEndVnode.elm));
+            api.insertBefore(
+              parentElm,
+              createElm(newEndVnode, insertedVnodeQueue),
+              api.nextSibling(oldEndVnode.elm),
+            );
             newEndVnode = newCh[--newEndIdx];
           } else {
             elmToMove = oldCh[idxInOld];
@@ -402,31 +424,34 @@
     function patchVnode(oldVnode, vnode3, insertedVnodeQueue) {
       var _a, _b, _c, _d, _e, _f, _g, _h;
       const hook = (_a = vnode3.data) === null || _a === void 0 ? void 0 : _a.hook;
-      (_b = hook === null || hook === void 0 ? void 0 : hook.prepatch) === null || _b === void 0 ? void 0 : _b.call(hook, oldVnode, vnode3);
-      const elm = vnode3.elm = oldVnode.elm;
-      if (oldVnode === vnode3)
-        return;
-      if (vnode3.data !== void 0 || isDef(vnode3.text) && vnode3.text !== oldVnode.text) {
-        (_c = vnode3.data) !== null && _c !== void 0 ? _c : vnode3.data = {};
-        (_d = oldVnode.data) !== null && _d !== void 0 ? _d : oldVnode.data = {};
-        for (let i = 0; i < cbs.update.length; ++i)
-          cbs.update[i](oldVnode, vnode3);
-        (_g = (_f = (_e = vnode3.data) === null || _e === void 0 ? void 0 : _e.hook) === null || _f === void 0 ? void 0 : _f.update) === null || _g === void 0 ? void 0 : _g.call(_f, oldVnode, vnode3);
+      (_b = hook === null || hook === void 0 ? void 0 : hook.prepatch) === null || _b === void 0
+        ? void 0
+        : _b.call(hook, oldVnode, vnode3);
+      const elm = (vnode3.elm = oldVnode.elm);
+      if (oldVnode === vnode3) return;
+      if (vnode3.data !== void 0 || (isDef(vnode3.text) && vnode3.text !== oldVnode.text)) {
+        (_c = vnode3.data) !== null && _c !== void 0 ? _c : (vnode3.data = {});
+        (_d = oldVnode.data) !== null && _d !== void 0 ? _d : (oldVnode.data = {});
+        for (let i = 0; i < cbs.update.length; ++i) cbs.update[i](oldVnode, vnode3);
+        (_g =
+          (_f = (_e = vnode3.data) === null || _e === void 0 ? void 0 : _e.hook) === null || _f === void 0
+            ? void 0
+            : _f.update) === null || _g === void 0
+          ? void 0
+          : _g.call(_f, oldVnode, vnode3);
       }
       const oldCh = oldVnode.children;
       const ch = vnode3.children;
       if (isUndef(vnode3.text)) {
         if (isDef(oldCh) && isDef(ch)) {
-          if (oldCh !== ch)
-            updateChildren(elm, oldCh, ch, insertedVnodeQueue);
+          if (oldCh !== ch) updateChildren(elm, oldCh, ch, insertedVnodeQueue);
         } else if (isDef(ch)) {
-          if (isDef(oldVnode.text))
-            api.setTextContent(elm, "");
+          if (isDef(oldVnode.text)) api.setTextContent(elm, '');
           addVnodes(elm, null, ch, 0, ch.length - 1, insertedVnodeQueue);
         } else if (isDef(oldCh)) {
           removeVnodes(elm, oldCh, 0, oldCh.length - 1);
         } else if (isDef(oldVnode.text)) {
-          api.setTextContent(elm, "");
+          api.setTextContent(elm, '');
         }
       } else if (oldVnode.text !== vnode3.text) {
         if (isDef(oldCh)) {
@@ -434,13 +459,14 @@
         }
         api.setTextContent(elm, vnode3.text);
       }
-      (_h = hook === null || hook === void 0 ? void 0 : hook.postpatch) === null || _h === void 0 ? void 0 : _h.call(hook, oldVnode, vnode3);
+      (_h = hook === null || hook === void 0 ? void 0 : hook.postpatch) === null || _h === void 0
+        ? void 0
+        : _h.call(hook, oldVnode, vnode3);
     }
     return function patch2(oldVnode, vnode3) {
       let i, elm, parent;
       const insertedVnodeQueue = [];
-      for (i = 0; i < cbs.pre.length; ++i)
-        cbs.pre[i]();
+      for (i = 0; i < cbs.pre.length; ++i) cbs.pre[i]();
       if (isElement2(api, oldVnode)) {
         oldVnode = emptyNodeAt(oldVnode);
       } else if (isDocumentFragment2(api, oldVnode)) {
@@ -460,20 +486,18 @@
       for (i = 0; i < insertedVnodeQueue.length; ++i) {
         insertedVnodeQueue[i].data.hook.insert(insertedVnodeQueue[i]);
       }
-      for (i = 0; i < cbs.post.length; ++i)
-        cbs.post[i]();
+      for (i = 0; i < cbs.post.length; ++i) cbs.post[i]();
       return vnode3;
     };
   }
 
   // node_modules/snabbdom/build/h.js
   function addNS(data, children, sel) {
-    data.ns = "http://www.w3.org/2000/svg";
-    if (sel !== "foreignObject" && children !== void 0) {
+    data.ns = 'http://www.w3.org/2000/svg';
+    if (sel !== 'foreignObject' && children !== void 0) {
       for (let i = 0; i < children.length; ++i) {
         const child = children[i];
-        if (typeof child === "string")
-          continue;
+        if (typeof child === 'string') continue;
         const childData = child.data;
         if (childData !== void 0) {
           addNS(childData, child.children, child.sel);
@@ -510,20 +534,19 @@
     }
     if (children !== void 0) {
       for (i = 0; i < children.length; ++i) {
-        if (primitive(children[i]))
-          children[i] = vnode(void 0, void 0, void 0, children[i], void 0);
+        if (primitive(children[i])) children[i] = vnode(void 0, void 0, void 0, children[i], void 0);
       }
     }
-    if (sel.startsWith("svg") && (sel.length === 3 || sel[3] === "." || sel[3] === "#")) {
+    if (sel.startsWith('svg') && (sel.length === 3 || sel[3] === '.' || sel[3] === '#')) {
       addNS(data, children, sel);
     }
     return vnode(sel, data, children, text, void 0);
   }
 
   // node_modules/snabbdom/build/modules/attributes.js
-  var xlinkNS = "http://www.w3.org/1999/xlink";
-  var xmlnsNS = "http://www.w3.org/2000/xmlns/";
-  var xmlNS = "http://www.w3.org/XML/1998/namespace";
+  var xlinkNS = 'http://www.w3.org/1999/xlink';
+  var xmlnsNS = 'http://www.w3.org/2000/xmlns/';
+  var xmlNS = 'http://www.w3.org/XML/1998/namespace';
   var colonChar = 58;
   var xChar = 120;
   var mChar = 109;
@@ -532,10 +555,8 @@
     const elm = vnode3.elm;
     let oldAttrs = oldVnode.data.attrs;
     let attrs = vnode3.data.attrs;
-    if (!oldAttrs && !attrs)
-      return;
-    if (oldAttrs === attrs)
-      return;
+    if (!oldAttrs && !attrs) return;
+    if (oldAttrs === attrs) return;
     oldAttrs = oldAttrs || {};
     attrs = attrs || {};
     for (key in attrs) {
@@ -543,7 +564,7 @@
       const old = oldAttrs[key];
       if (old !== cur) {
         if (cur === true) {
-          elm.setAttribute(key, "");
+          elm.setAttribute(key, '');
         } else if (cur === false) {
           elm.removeAttribute(key);
         } else {
@@ -552,7 +573,9 @@
           } else if (key.charCodeAt(3) === colonChar) {
             elm.setAttributeNS(xmlNS, key, cur);
           } else if (key.charCodeAt(5) === colonChar) {
-            key.charCodeAt(1) === mChar ? elm.setAttributeNS(xmlnsNS, key, cur) : elm.setAttributeNS(xlinkNS, key, cur);
+            key.charCodeAt(1) === mChar
+              ? elm.setAttributeNS(xmlnsNS, key, cur)
+              : elm.setAttributeNS(xlinkNS, key, cur);
           } else {
             elm.setAttribute(key, cur);
           }
@@ -567,7 +590,7 @@
   }
   var attributesModule = {
     create: updateAttrs,
-    update: updateAttrs
+    update: updateAttrs,
   };
 
   // node_modules/snabbdom/build/modules/class.js
@@ -577,10 +600,8 @@
     const elm = vnode3.elm;
     let oldClass = oldVnode.data.class;
     let klass = vnode3.data.class;
-    if (!oldClass && !klass)
-      return;
-    if (oldClass === klass)
-      return;
+    if (!oldClass && !klass) return;
+    if (oldClass === klass) return;
     oldClass = oldClass || {};
     klass = klass || {};
     for (name in oldClass) {
@@ -591,7 +612,7 @@
     for (name in klass) {
       cur = klass[name];
       if (cur !== oldClass[name]) {
-        elm.classList[cur ? "add" : "remove"](name);
+        elm.classList[cur ? 'add' : 'remove'](name);
       }
     }
   }
@@ -599,9 +620,9 @@
 
   // node_modules/snabbdom/build/modules/eventlisteners.js
   function invokeHandler(handler, vnode3, event) {
-    if (typeof handler === "function") {
+    if (typeof handler === 'function') {
       handler.call(vnode3, event, vnode3);
-    } else if (typeof handler === "object") {
+    } else if (typeof handler === 'object') {
       for (let i = 0; i < handler.length; i++) {
         invokeHandler(handler[i], vnode3, event);
       }
@@ -643,7 +664,7 @@
       }
     }
     if (on) {
-      const listener = vnode3.listener = oldVnode.listener || createListener();
+      const listener = (vnode3.listener = oldVnode.listener || createListener());
       listener.vnode = vnode3;
       if (!oldOn) {
         for (name in on) {
@@ -661,19 +682,22 @@
   var eventListenersModule = {
     create: updateEventListeners,
     update: updateEventListeners,
-    destroy: updateEventListeners
+    destroy: updateEventListeners,
   };
 
   // node_modules/snabbdom/build/modules/style.js
-  var raf = typeof (window === null || window === void 0 ? void 0 : window.requestAnimationFrame) === "function" ? window.requestAnimationFrame.bind(window) : setTimeout;
-  var nextFrame = function(fn) {
-    raf(function() {
+  var raf =
+    typeof (window === null || window === void 0 ? void 0 : window.requestAnimationFrame) === 'function'
+      ? window.requestAnimationFrame.bind(window)
+      : setTimeout;
+  var nextFrame = function (fn) {
+    raf(function () {
       raf(fn);
     });
   };
   var reflowForced = false;
   function setNextFrame(obj, prop, val) {
-    nextFrame(function() {
+    nextFrame(function () {
       obj[prop] = val;
     });
   }
@@ -683,33 +707,31 @@
     const elm = vnode3.elm;
     let oldStyle = oldVnode.data.style;
     let style = vnode3.data.style;
-    if (!oldStyle && !style)
-      return;
-    if (oldStyle === style)
-      return;
+    if (!oldStyle && !style) return;
+    if (oldStyle === style) return;
     oldStyle = oldStyle || {};
     style = style || {};
-    const oldHasDel = "delayed" in oldStyle;
+    const oldHasDel = 'delayed' in oldStyle;
     for (name in oldStyle) {
       if (!(name in style)) {
-        if (name[0] === "-" && name[1] === "-") {
+        if (name[0] === '-' && name[1] === '-') {
           elm.style.removeProperty(name);
         } else {
-          elm.style[name] = "";
+          elm.style[name] = '';
         }
       }
     }
     for (name in style) {
       cur = style[name];
-      if (name === "delayed" && style.delayed) {
+      if (name === 'delayed' && style.delayed) {
         for (const name2 in style.delayed) {
           cur = style.delayed[name2];
           if (!oldHasDel || cur !== oldStyle.delayed[name2]) {
             setNextFrame(elm.style, name2, cur);
           }
         }
-      } else if (name !== "remove" && cur !== oldStyle[name]) {
-        if (name[0] === "-" && name[1] === "-") {
+      } else if (name !== 'remove' && cur !== oldStyle[name]) {
+        if (name[0] === '-' && name[1] === '-') {
           elm.style.setProperty(name, cur);
         } else {
           elm.style[name] = cur;
@@ -722,8 +744,7 @@
     let name;
     const elm = vnode3.elm;
     const s = vnode3.data.style;
-    if (!s || !(style = s.destroy))
-      return;
+    if (!s || !(style = s.destroy)) return;
     for (name in style) {
       elm.style[name] = style[name];
     }
@@ -749,16 +770,13 @@
       elm.style[name] = style[name];
     }
     const compStyle = getComputedStyle(elm);
-    const props = compStyle["transition-property"].split(", ");
+    const props = compStyle['transition-property'].split(', ');
     for (; i < props.length; ++i) {
-      if (applied.indexOf(props[i]) !== -1)
-        amount++;
+      if (applied.indexOf(props[i]) !== -1) amount++;
     }
-    elm.addEventListener("transitionend", function(ev) {
-      if (ev.target === elm)
-        --amount;
-      if (amount === 0)
-        rm();
+    elm.addEventListener('transitionend', function (ev) {
+      if (ev.target === elm) --amount;
+      if (amount === 0) rm();
     });
   }
   function forceReflow() {
@@ -769,113 +787,133 @@
     create: updateStyle,
     update: updateStyle,
     destroy: applyDestroyStyle,
-    remove: applyRemoveStyle
+    remove: applyRemoveStyle,
   };
 
   // index.ts
-  var renderSan = (san) => {
-    if (san.charAt(1) !== "-") return san.charAt(0) + " " + san.substring(1);
+  var renderSan = san => {
+    if (san.charAt(1) !== '-') return san.charAt(0) + ' ' + san.substring(1);
   };
   var patch = init([classModule, attributesModule, eventListenersModule, styleModule]);
-  var container = document.getElementById("container");
+  var container = document.getElementById('container');
   var vnode2;
   var dataset;
   function redraw() {
-    vnode2 = patch(vnode2 || container, h("main", [renderUpload(), renderTable2(), renderGrid()]));
+    vnode2 = patch(vnode2 || container, h('main', [renderUpload(), renderTable2(), renderGrid()]));
   }
   function renderUpload() {
-    return h("div", [
-      h("h2#uploadInputLabel", "Upload experimental data"),
-      h("input#jsonFile", {
+    return h('div', [
+      h('h2#uploadInputLabel', 'Upload experimental data'),
+      h('input#jsonFile', {
         attrs: {
-          "aria-labelledBy": "uploadInputLabel",
-          type: "file",
-          accept: ".json"
+          'aria-labelledBy': 'uploadInputLabel',
+          type: 'file',
+          accept: '.json',
         },
         on: {
-          change: (event) => {
+          change: event => {
             const input = event.target;
             if (!input.files || input.files.length === 0 || !input.files[0]) {
               return;
             }
             const reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = function (e) {
               try {
                 const result = e.target?.result;
-                if (result && typeof result === "string") {
+                if (result && typeof result === 'string') {
                   const jsonData = JSON.parse(result);
                   dataset = jsonData.dataset;
                   redraw();
                 }
               } catch (err) {
-                alert("Invalid JSON file.");
+                alert('Invalid JSON file.');
               }
             };
             reader.readAsText(input.files[0]);
-          }
-        }
-      })
+          },
+        },
+      }),
     ]);
   }
   function renderGrid() {
-    return h("div", [
-      h("h2", "Move table using div elements"),
-      h("div", { attrs: { role: "table", "aria-label": "Move table", "aria-rowcount": dataset.length, class: "grid-container" } }, [
-        h("div", { attrs: { role: "row", class: "grid-header" } }, [
-          h("div", { attrs: { role: "columnheader" } }, "Turn"),
-          h("div", { attrs: { role: "columnheader" } }, "Move"),
-          h("div", { attrs: { role: "columnheader" } }, "Move time"),
-          h("div", { attrs: { role: "columnheader" } }, "White advantage")
-        ]),
-        ...dataset.map((item) => {
-          return h("div", { attrs: { role: "row", class: "grid-data" } }, [
-            h("div", { attrs: { role: "cell" } }, item.turn),
-            h(
-              "div",
-              { attrs: { role: "cell" } },
-              item.color + " played " + renderSan(item.san)
-            ),
-            h("div", { attrs: { role: "cell" } }, item.movetime + " seconds"),
-            h("div", { attrs: { role: "cell" } }, item.advantage)
-          ]);
-        })
-      ])
+    return h('div', [
+      h('h2', 'Move table using div elements'),
+      h(
+        'div',
+        {
+          attrs: {
+            role: 'table',
+            'aria-label': 'Move table',
+            'aria-rowcount': dataset.length,
+            class: 'grid-container',
+          },
+        },
+        [
+          h('div', { attrs: { role: 'row', class: 'grid-header' } }, [
+            h('div', { attrs: { role: 'columnheader' } }, 'Turn'),
+            h('div', { attrs: { role: 'columnheader' } }, 'Move'),
+            h('div', { attrs: { role: 'columnheader' } }, 'Move time'),
+            h('div', { attrs: { role: 'columnheader' } }, 'White advantage'),
+          ]),
+          ...dataset.map(item => {
+            return h('div', { attrs: { role: 'row', class: 'grid-data' } }, [
+              h('div', { attrs: { role: 'cell' } }, item.turn),
+              h(
+                'div',
+                { attrs: { role: 'cell', tabindex: 0 } },
+                item.color + ' played ' + renderSan(item.san),
+              ),
+              h('div', { attrs: { role: 'cell' } }, item.movetime + ' seconds'),
+              h('div', { attrs: { role: 'cell' } }, item.advantage),
+            ]);
+          }),
+        ],
+      ),
     ]);
   }
   function renderTable2() {
-    return h("div", [
-      h("h2#moveTableLabel2", "Move table using html table with aria"),
+    return h('div', [
+      h('h2#moveTableLabel2', 'Move table using html table with aria'),
       h(
-        "table.moves",
+        'table.moves',
         {
           attrs: {
-            role: "grid",
-            "aria-labelledBy": "moveTableLabel2",
-            "aria-rowcount": dataset.length,
-            "aria-colcount": 4
-          }
+            role: 'grid',
+            'aria-labelledBy': 'moveTableLabel2',
+            'aria-rowcount': dataset.length,
+            'aria-colcount': 4,
+          },
+          hook: {
+            insert: () => {
+              const notification = document.getElementById('notification');
+              if (notification) notification.textContent = 'You have a new message!';
+            },
+          },
         },
-        h("tbody", [
-          h("tr", [
-            h("th", { attrs: { "aria-colindex": 1 } }, "Turn"),
-            h("th", { attrs: { "aria-colindex": 2 } }, "Move"),
-            h("th", { attrs: { "aria-colindex": 3 } }, "Move time"),
-            h("th", { attrs: { "aria-colindex": 4 } }, "White advantage")
+        h('tbody', [
+          h('tr', [
+            h('th', { attrs: { 'aria-colindex': 1 } }, 'Turn'),
+            h('th', { attrs: { 'aria-colindex': 2 } }, 'Move'),
+            h('th', { attrs: { 'aria-colindex': 3 } }, 'Move time'),
+            h('th', { attrs: { 'aria-colindex': 4 } }, 'White advantage'),
           ]),
-          ...dataset.map((item) => {
-            return h("tr", { attrs: { "aria-rowindex": item.ply } }, [
-              h("td", { attrs: { tabindex: -1 } }, item.turn),
-              h("td", { attrs: { tabindex: -1 } }, item.color + " played " + renderSan(item.san)),
-              h("td", { attrs: { tabindex: -1 } }, item.movetime + " seconds"),
-              h("td", { attrs: { tabindex: -1 } }, item.advantage)
+          ...dataset.map(item => {
+            return h('tr', { attrs: { 'aria-rowindex': item.ply } }, [
+              h('td', { attrs: { tabindex: -1 } }, item.turn),
+              h('td', { attrs: { tabindex: 0 } }, item.color + ' played ' + renderSan(item.san)),
+              h('td', { attrs: { tabindex: -1 } }, item.movetime + ' seconds'),
+              h('td', { attrs: { tabindex: -1 } }, item.advantage),
             ]);
-          })
-        ])
-      )
+          }),
+        ]),
+      ),
+      h('h3#notification', { attrs: { 'aria-live': 'assertive' } }),
     ]);
   }
-  fetch("data.json").then((response) => response.json()).then((json) => {
-    dataset = json;
-    redraw();
-  });
+  fetch('data.json')
+    .then(response => response.json())
+    .then(json => {
+      dataset = json;
+      redraw();
+    });
 })();
