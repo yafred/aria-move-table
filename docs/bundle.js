@@ -841,22 +841,25 @@
             h("div", { attrs: { role: "columnheader" } }, "White advantage")
           ]),
           ...dataset.map((item) => {
-            return h("div", { attrs: { role: "row", class: "grid-data" } }, [
+            return h("div", { attrs: { role: "row", "aria-rowindex": item.ply, class: "grid-data" } }, [
               h("div", { attrs: { role: "cell" } }, item.turn),
               h(
                 "div",
                 {
                   attrs: { role: "cell", tabindex: 0 },
-                  on: {
-                    focus: (event) => {
-                      const target = event.target;
-                      if (document.activeElement === target) {
-                        console.log("Focus triggered.");
-                        return;
-                      }
-                      const text = target.textContent;
-                      const notification = document.getElementById("grid-notification");
-                      if (notification) notification.textContent = text;
+                  hook: {
+                    insert: (vnode3) => {
+                      vnode3.elm?.addEventListener(
+                        "focus",
+                        (event) => {
+                          console.log("event");
+                          const target = event.target;
+                          const text = target.textContent;
+                          const notification = document.getElementById("grid-notification");
+                          if (notification) notification.textContent = text;
+                        },
+                        { once: true }
+                      );
                     }
                   }
                 },
@@ -900,7 +903,6 @@
                     focus: (event) => {
                       const target = event.target;
                       if (document.activeElement === target) {
-                        console.log("Focus triggered.");
                         return;
                       }
                       const text = target.textContent;
