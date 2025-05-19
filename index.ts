@@ -26,7 +26,10 @@ let vnode: VNode;
 let dataset: Move[];
 
 function redraw() {
-  vnode = patch(vnode || container, h('main', [renderUpload(), renderTable2(), renderGrid()]));
+  vnode = patch(
+    vnode || container,
+    h('main', [renderUpload(), renderTable2(), renderGridWithRoles(), renderGridWithoutRoles()]),
+  );
 }
 
 function renderUpload(): VNode {
@@ -86,9 +89,9 @@ function renderTable1(): VNode {
 }
 */
 
-function renderGrid(): VNode {
+function renderGridWithRoles(): VNode {
   return h('div', [
-    h('h2', 'Move table using div elements'),
+    h('h2', 'Move table using div elements with roles'),
     h(
       'div',
       {
@@ -109,9 +112,77 @@ function renderGrid(): VNode {
         ...dataset.map(item => {
           return h('div', { attrs: { role: 'row', class: 'grid-data' } }, [
             h('div', { attrs: { role: 'cell' } }, item.turn),
-            h('div', { attrs: { role: 'cell', tabindex: 0 } }, item.color + ' played ' + renderSan(item.san)),
+            h(
+              'div',
+              {
+                attrs: { role: 'cell', tabindex: 0 },
+                on: {
+                  focus: event => {
+                    const target = event.target as HTMLElement;
+                    if (document.activeElement === target) {
+                      console.log('Focus triggered.');
+                      return;
+                    }
+                    const text = target.textContent;
+                    const notification = document.getElementById('grid-notification');
+                    if (notification) notification.textContent = text;
+                  },
+                },
+              },
+              item.color + ' played ' + renderSan(item.san),
+            ),
             h('div', { attrs: { role: 'cell' } }, item.movetime + ' seconds'),
             h('div', { attrs: { role: 'cell' } }, item.advantage),
+          ]);
+        }),
+      ],
+    ),
+    h('h3#grid-notification', { attrs: { 'aria-live': 'assertive' } }),
+  ]);
+}
+
+function renderGridWithoutRoles(): VNode {
+  return h('div', [
+    h('h2', 'Move table using div elements without roles'),
+    h(
+      'div',
+      {
+        attrs: {
+          'aria-label': 'Move table',
+          class: 'grid-container',
+        },
+      },
+      [
+        h('div', { attrs: { class: 'grid-header' } }, [
+          h('div', { attrs: {} }, 'Turn'),
+          h('div', { attrs: {} }, 'Move'),
+          h('div', { attrs: {} }, 'Move time'),
+          h('div', { attrs: {} }, 'White advantage'),
+        ]),
+        ...dataset.map(item => {
+          return h('div', { attrs: { class: 'grid-data' } }, [
+            h('div', { attrs: {} }, item.turn),
+            h(
+              'div',
+              {
+                attrs: { tabindex: 0 },
+                on: {
+                  focus: event => {
+                    const target = event.target as HTMLElement;
+                    if (document.activeElement === target) {
+                      console.log('Focus triggered.');
+                      return;
+                    }
+                    const text = target.textContent;
+                    const notification = document.getElementById('grid-notification');
+                    if (notification) notification.textContent = text;
+                  },
+                },
+              },
+              item.color + ' played ' + renderSan(item.san),
+            ),
+            h('div', { attrs: {} }, item.movetime + ' seconds'),
+            h('div', { attrs: {} }, item.advantage),
           ]);
         }),
       ],
