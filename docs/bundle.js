@@ -878,7 +878,10 @@
   function renderGridWithoutRoles() {
     return h("div", [
       h("h2", "Move table using div elements without roles"),
-      h("p", "Browse mode is minimum as it is not recognized as a table. Everything must be done in focus mode."),
+      h(
+        "p",
+        "Browse mode is minimum as it is not recognized as a table. Everything must be done in focus mode."
+      ),
       h(
         "div",
         {
