@@ -783,7 +783,7 @@
   function redraw() {
     vnode2 = patch(
       vnode2 || container,
-      h("main", [renderUpload(), renderTable2(), renderGridWithRoles(), renderGridWithoutRoles()])
+      h("main", [renderTable2(), renderGridWithRoles(), renderGridWithoutRoles(), renderUpload()])
     );
   }
   function renderUpload() {
@@ -823,6 +823,7 @@
   function renderGridWithRoles() {
     return h("div", [
       h("h2", "Move table using div elements with roles"),
+      h("p", "Browse mode is great. Focus mode needs fixing"),
       h(
         "div",
         {
@@ -877,6 +878,7 @@
   function renderGridWithoutRoles() {
     return h("div", [
       h("h2", "Move table using div elements without roles"),
+      h("p", "Browse mode is minimum as it is not recognized as a table. Everything must be done in focus mode."),
       h(
         "div",
         {
@@ -924,6 +926,7 @@
   function renderTable2() {
     return h("div", [
       h("h2#moveTableLabel2", "Move table using html table with aria"),
+      h("p", "Browse mode is great. Focus mode is very verbose"),
       h(
         "table.moves",
         {
